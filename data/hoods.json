@@ -1,0 +1,166 @@
+{
+  "hoods": [
+    {
+      "id": "select",
+      "data": {
+        "name": "selection",
+        "nodes": [{
+          "name": "group",
+          "nodes": [
+            {"name": "doc", "type": "parentNode"},
+            {"name": "tr"}
+          ]
+        }]
+      }
+    },
+    {
+      "id": "selectAll",
+      "data": {
+        "name": "selection",
+        "nodes": [{
+          "name": "group",
+          "nodes": [
+            {"name": "doc", "type": "parentNode"},
+            {"name": "tr"},
+            {"name": "tr"},
+            {"name": "tr"}
+          ]
+        }]
+      }
+    },
+    {
+      "id": "selectAllselectAll",
+      "data": {
+        "name": "selection",
+        "nodes": [{
+          "name": "group",
+          "nodes": [
+            {"name": "tr", "type": "parentNode"},
+            {"name": "td"},
+            {"name": "td"}
+          ]
+        },
+        {
+          "name": "group",
+          "nodes": [
+            {"name": "tr", "type": "parentNode"},
+            {"name": "td"},
+            {"name": "td"}
+          ]
+        }]
+      }
+    },
+    {
+      "id": "selectAllstyle",
+      "data": {
+        "name": "selection",
+        "nodes": [{
+          "name": "group",
+          "desc": "  .style('color', 'red')",
+          "nodes": [
+            {"name": "doc", "type": "parentNode"},
+            {"name": "tr"},
+            {"name": "tr"},
+            {"name": "tr"}
+          ]
+        }]
+      }
+    },
+    {
+      "id": "selectDatum",
+      "data": {
+        "name": "selection",
+        "nodes": [{
+          "name": "group",
+          "nodes": [
+            {"name": "doc", "type": "parentNode"},
+            {"name": "tr", "desc": "__data__: [1, 2, 3]"}
+          ]
+        }]
+      }
+    },
+    {
+      "id": "selectAllData",
+      "data": {
+        "name": "selection",
+        "nodes": [{
+          "name": "group",
+          "nodes": [
+            {"name": "doc", "type": "parentNode"},
+            {"name": "tr", "desc": "__data__: 1"},
+            {"name": "tr", "desc": "__data__: 2"},
+            {"name": "tr", "desc": "__data__: 3"}
+          ]
+        }]
+      }
+    },
+    {
+      "id": "selectAllData",
+      "data": {
+        "name": "selection",
+        "desc": "enter(), exit()",
+        "nodes": [{
+          "name": "group",
+          "nodes": [
+            {"name": "doc", "type": "parentNode"},
+            {"name": "tr", "desc": "__data__: 1"},
+            {"name": "tr", "desc": "__data__: 2"},
+            {"name": "tr", "desc": "__data__: 3"}
+          ]
+        }]
+      }
+    },
+    {
+      "id": "selectAllData2",
+      "data": {
+        "name": "selection",
+        "desc": "enter(), exit()",
+        "nodes": [{
+          "name": "group",
+          "nodes": [
+            {"name": "doc", "type": "parentNode"},
+            {"name": "tr", "desc": "__data__: 1"},
+            {"name": "tr", "desc": "__data__: 2"},
+            {"name": "tr", "desc": "__data__: 3"},
+            {"name": "null", "type": "placeholder"},
+            {"name": "null", "type": "placeholder"}
+          ]
+        }]
+      }
+    },
+    {
+      "id": "selectAllEnter",
+      "data": {
+        "name": "selection",
+        "nodes": [{
+          "name": "group",
+          "nodes": [
+            {"name": "doc", "type": "parentNode"},
+            {"name": "tr", "type": "placeholder"},
+            {"name": "tr", "type": "placeholder"},
+            {"name": "tr", "type": "placeholder"},
+            {"name": "placeholder", "desc": "__data__: 4"},
+            {"name": "placeholder", "desc": "__data__: 5"}
+          ]
+        }]
+      }
+    },
+    {
+      "id": "selectAllExit",
+      "data": {
+        "name": "selection",
+        "nodes": [{
+          "name": "group",
+          "nodes": [
+            {"name": "doc", "type": "parentNode"},
+            {"name": "tr", "desc": "__data__: 4", "type": "placeholder"},
+            {"name": "tr", "desc": "__data__: 5", "type": "placeholder"},
+            {"name": "tr"},
+            {"name": "tr"},
+            {"name": "tr"}
+          ]
+        }]
+      }
+    }
+  ]
+}
