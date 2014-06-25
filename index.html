@@ -6,275 +6,50 @@
 
 		<title>Intro to D3.js</title>
 
-		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
-		<meta name="author" content="Hakim El Hattab">
+	    <link rel="stylesheet" href="stylesheets/bootstrap.css" type="text/css" />
+		<link rel="stylesheet" href="stylesheets/style.css">
+	    <script data-main="scripts/main" src="scripts/contrib/require-jquery.js"></script>
 
-		<meta name="apple-mobile-web-app-capable" content="yes" />
-		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
-		<link rel="stylesheet" href="css/reveal.min.css">
-		<link rel="stylesheet" href="css/theme/beige.css" id="theme">
-	    <link rel="stylesheet" href="css/bootstrap.css" type="text/css" />
-		<link rel="stylesheet" href="css/style.css">
-	    <script data-main="js/main" src="js/contrib/require-jquery.js"></script>
-
-		<!-- For syntax highlighting -->
-		<link rel="stylesheet" href="lib/css/zenburn.css">
-
-		<!--[if lt IE 9]>
-		<script src="lib/js/html5shiv.js"></script>
-		<![endif]-->
 	</head>
 
 	<body>
+    <div class="notesBG"></div>
+    <div class="contentBG"></div>
 
-		<div class="reveal">
+    <div class="page" id="titlePage">
+      <div class="title">
+        <h1>An Introduction to d3.js</h1>
+      </div>
+    </div>
 
-			<!-- Any section element inside of this container is displayed as a slide -->
-			<div class="slides">
-                <section id="title">
-                    <h2>Intro to D3.js</h2>
-                    <p>
-                        <br>
-                        Shirley Wu 
-                        <br>
-                        <small>(<a href="http://twitter.com/shirleyxywu" target="_new">@shirleyxywu</a>)</small>
-                    </p>
-                </section>
+    <div class="page">
+      <div class="content">
+        <h2>d3.js: data-driven documents</h2>
+        <p>
+          d3.js is not a data visualization library.  It will not draw anything for you.
+        </p>
+        <p>
+          It is a <span class="emp">tool</span> to help you manipulate DOM elements.  As such, <span class="emp">we</span> do the heavy-lifting, not vice versa.
+        </p>
+        <h4>
+          So how do we use this tool?
+        </h4>
+      </div>
+      <div class="notes">
+      </div>
+    </div>
 
-                <section>
-                    <h3>Data-Driven Documents</h3>
-                    <p>D3.js manipulates documents by binding data to them.
-                    </p>
-                </section>
+    <div class="page">
+      <div class="content left">
+        <h2><span class="orderNumbers">1</span>We can use it to grab something on the screen</h2>
+        <div class="left ">
+        <p>Click on a div.</p>
+        <div class="demo span3">div</div>
 
-                <section>
-                    <h3>Selections</h3>
-                    <p>
-                      select<br>
-                      selectAll<br>
-                    </p>
-                </section>
+      </div>
+      <div class="notes">
 
-                <section>
-                  <div class="left">
-                    <strong class="title" class="title">d3.select("tr")</strong>
-                    <div class="canvas">
-                      body
-                      <div class="row selected">tr</div>
-                      <div class="row">tr</div>
-                      <div class="row">tr</div>
-                    </div>
-                  </div>
-                  <div class="right">
-                    <strong class="title" class="title">d3.selectAll("tr")</strong>
-                    <div class="canvas">
-                      body
-                      <div class="row selected">tr</div>
-                      <div class="row selected">tr</div>
-                      <div class="row selected">tr</div>
-                    </div>
-                  </div>
-                </section>
-
-                <section>
-                  <h3>under da hood</h3>
-                  <p class="text-small">*dotted lines indicate parentNode</p>
-                  <div class="left">
-                    <strong class="title" class="title">d3.select("tr")</strong>
-                    <svg id="select">
-                    </svg>
-                  </div>
-                  <div class="right">
-                    <strong class="title" class="title">d3.selectAll("tr")</strong>
-                    <svg id="selectAll">
-                    </svg>
-                  </div>
-                </section>
-
-                <section>
-                  <strong class="title" class="title">d3.selectAll("tr").selectAll("td")</strong>
-                  <div class="canvas left">
-                    body
-                    <div class="row">
-                      tr
-                      <div class="column selected">td</div>
-                      <div class="column selected">td</div>
-                    </div>
-                    <div class="row">
-                      tr
-                      <div class="column selected">td</div>
-                      <div class="column selected">td</div>
-                    </div>
-                  </div>
-                  <svg class="right" id="selectAllselectAll">
-                  </svg>
-                </section>
-
-                <section>
-                  <strong class="title" class="title">d3.selectAll("tr").<span class="underline">style</span>("color", "red")</strong>
-<!--                   <a href="https://github.com/mbostock/d3/wiki/Selections#wiki-d3_select" target="_new" class="text-small">(more operations)</a> -->
-                  <div class="canvas left">
-                    body
-                    <div class="row selected red">tr</div>
-                    <div class="row selected red">tr</div>
-                    <div class="row selected red">tr</div>
-                  </div>
-                  <svg class="right" id="selectAllstyle"></svg>
-                </section>
-
-                <section>
-                  <h3>data</h3>
-                  <p>
-                    datum<br>
-                    data<br>
-                  </p>
-                </section>
-				      
-                <section>
-                  <strong class="title" class="title">d3.select("tr").datum([1, 2, 3])</strong>
-                  <div class="canvas left">
-                    body
-                    <div class="row selected">tr 
-                      <span class="data">[1, 2, 3]</data>
-                    </div>
-                    <div class="row">tr</div>
-                    <div class="row">tr</div>
-                  </div>
-                  <svg class="right" id="selectDatum"></svg>
-                </section>
-
-                <section>
-                  <strong class="title" class="title">d3.selectAll("tr").data([1, 2, 3])</strong>
-                  <div class="canvas left">
-                    body
-                    <div class="row selected">tr 
-                      <span class="data">1</data>
-                    </div>
-                    <div class="row selected">tr
-                      <span class="data">2</data>
-                    </div>
-                    <div class="row selected">tr
-                      <span class="data">3</data>
-                    </div>
-                  </div>
-                  <svg class="right" id="selectAllData"></svg>
-                </section>
-
-                <section>
-                  <h3>enter</h3>
-                  <h3>update</h3>
-                  <h3>exit</h3>
-                </section>
-
-<!--                 <section>
-                  <strong class="title">
-                    data = [1, 2, 3, 4, 5]
-                  </strong>
-                  <div class="canvas">
-                    body
-                    <div class="row">tr</div>
-                    <div class="row">tr</div>
-                    <div class="row">tr</div>
-                  </div>
-                </section> -->
-
-                <section>
-                  <strong class="title">d3.selectAll("tr").data([1, 2, 3, 4, 5])</strong>
-                  <div class="canvas left">
-                    body
-                    <div class="row selected">tr 
-                      <span class="data">1</data>
-                    </div>
-                    <div class="row selected">tr
-                      <span class="data">2</data>
-                    </div>
-                    <div class="row selected">tr
-                      <span class="data">3</data>
-                    </div>
-                    <strong class="right text-small red">But where's 4 and 5?</strong>
-                  </div>
-                  <svg class="right" id="selectAllData2"></svg>
-                </section>
-
-                <section>
-                  <strong class="title">d3.selectAll("tr").data([1, 2, 3, 4, 5]).enter()</strong>
-                  <svg id="selectAllEnter"></svg>
-                  <strong class="text-small">
-                    d3.selectAll("tr").data([1, 2, 3, 4, 5]).enter().append("tr")
-                  </strong>
-                </section>
-
-                <section>
-                  <strong class="title">d3.selectAll("tr").data([4, 5]).exit()</strong>
-                  <svg id="selectAllExit"></svg>
-                  <strong class="text-small">
-                    d3.selectAll("tr").data([4, 5]).enter().remove()
-                  </strong>
-                </section>
-
-                <section>
-                  <h3>let's go through an example</h3>
-                  <a href="http://bl.ocks.org/mbostock/4063550" target="_new">Radial Reingold–Tilford Tree</a>
-                </section>
-
-                <section>
-                  <h3>some great resources</h3>
-                  <a href="http://bost.ocks.org/mike/selection/" target="_new">How Selections Work</a><br>
-                  <a href="http://mbostock.github.io/d3/tutorial/circle.html" target="_new">Three Little Circles</a><br>
-
-                  <table>
-                    <tr>
-                      <td></td>
-                      <td></td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td></td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td></td>
-                    </tr>
-                  </table>
-                </section>
-			</div>
-
-		</div>
-
-		<script src="lib/js/head.min.js"></script>
-		<script src="js/reveal.min.js"></script>
-
-		<script>
-
-			// Full list of configuration options available here:
-			// https://github.com/hakimel/reveal.js#configuration
-			Reveal.initialize({
-				controls: true,
-				progress: true,
-				history: true,
-				center: true,
-
-				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
-				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
-
-				// Optional libraries used to extend on reveal.js
-				dependencies: [
-					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
-					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
-					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
-					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
-					// { src: 'plugin/leap/leap.js', async: true }
-					// { src: 'plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
-					// { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
-				]
-			});
-
-		</script>
-
+      </div>
+    </div>
 	</body>
 </html>

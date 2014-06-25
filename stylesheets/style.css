@@ -1,0 +1,100 @@
+* {
+  font-family: Helvetica, sans-serif;
+}
+
+.contentBG {
+  background-color: #fff;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 75%;
+  height: 100%;
+  box-shadow: 0 0 10px #cfcfcf;
+}
+
+.notesBG {
+  background-color: #fcfcfc;
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 30%;
+  height: 100%;
+}
+
+
+.page {
+  width: 100%;
+  min-height: 700px;
+  position: relative;
+  display: table;
+
+}
+
+h1, h2, h3, h4, h5 {
+  margin: 40px;
+}
+
+.title, .content {
+  display: table-cell;  
+  text-align: center;
+  vertical-align: middle;
+}
+
+.content.left {
+  text-align: left;
+}
+
+.title h1 {
+  font-weight: 400;
+}
+
+.content {
+  width: 75%;
+}
+
+.notes {
+  height: 100%;
+}
+
+.span3 {
+  float: left;
+  width: 32%;
+}
+
+.span2 {
+  float: left;
+  width: 49%;
+}
+
+.demo {
+  width: 300px;
+  height: 75px;
+  border-radius: 3px;
+  border: 1px solid #666;
+  margin: 20px 0;
+  padding: 5px;
+}
+
+.emp {
+  display: inline-block;
+  border-bottom: 1px solid #666;
+}
+
+/*
+specific DOM elements
+*/
+#titlePage {
+  background-color: #fff;
+  border-bottom: 1px solid #cfcfcf;
+}
+
+.orderNumbers {
+  display: inline-block;
+  background-color: #333;
+  color: #fff;
+  width: 45px;
+  height: 45px;
+  line-height: 45px;
+  text-align: center;
+  margin-right: 10px;
+}
