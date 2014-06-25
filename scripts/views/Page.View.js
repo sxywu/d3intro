@@ -1,9 +1,7 @@
 define([
     "jquery",
     "underscore",
-    "backbone",
-    "d3",
-    "app/visualizations/Hood.Visualization"
+    "backbone"
 ], function(
     $,
     _,
