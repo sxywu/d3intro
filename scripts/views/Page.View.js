@@ -16,6 +16,7 @@ define([
         },
         events: {
             'click .demoDiv': 'clickDiv',
+            'click .demoDiv h4': 'clickChild',
             'click .manipulateDiv': 'manipulateDiv',
             'click .manipulateChild': 'manipulateChild',
             // 'click .bindData': 'bindData',
@@ -26,10 +27,11 @@ define([
             'click .runCode': 'runCode'
         },
         clickDiv: function(e) {
-            if ($(e.target).hasClass('highlight')) {
-                $(e.target).removeClass('highlight');
+            var $div = ($(e.target).is('.demoDiv') ? $(e.target) : $(e.target).parents('.demoDiv'))
+            if ($div.hasClass('highlight')) {
+                $div.removeClass('highlight');
             } else {
-                $(e.target).addClass('highlight');
+                $div.addClass('highlight');
             }
 
             this.toggleShowCode();
@@ -92,7 +94,7 @@ define([
                 bindDataActivated = this.$('.bindData').length ?
                     this.$('.bindData.active input').val() : true;
 
-            if (demoHighlighted && (manipulateActivated || bindDataActivated)) {
+            if (demoHighlighted && manipulateActivated && bindDataActivated) {
                 this.$('.showCode').removeClass('disabled');
             } else {
                 this.$('.showCode').addClass('disabled')
@@ -200,7 +202,7 @@ define([
         },
         runCode: function() {
             // clear demo div's first
-            this.$('.demoDiv, .demoDiv h4').empty();
+            // this.$('.demoDiv, .demoDiv h4').empty();
 
             var code = this.$('pre').text();
             code = code.replace(/div/g, '#' + this.id + ' .demoDiv');
