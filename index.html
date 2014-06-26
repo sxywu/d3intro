@@ -175,11 +175,15 @@ d3.select('div');
                 <div class="badge">3</div>  and here's the <span class="emp">magic</span>:
               </p>
               <ul class="nav nav-pills nav-stacked">
-                <li class="enterExit" data-val="enter">
+                <li class="enterExit" data-type="enter">
                   <a>enter-append</a>
                   <li class="manipulateChild hidden" data-type="text"><a>text</a></li>
                 </li>
-                <li class="enterExit" data-val="exit"><a>exit-remove</a></li>
+                <li class="enterExit" data-type="update">
+                  <a>update</a>
+                  <li class="manipulateChild hidden" data-type="text"><a>text</a></li>
+                </li>
+                <li class="enterExit" data-type="exit"><a>exit-remove</a></li>
               </ul>
             </div>
 

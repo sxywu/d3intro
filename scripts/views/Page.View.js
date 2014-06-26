@@ -19,13 +19,10 @@ define([
             'click .demoDiv h4': 'clickChild',
             'click .manipulateDiv': 'manipulateDiv',
             'click .manipulateChild': 'manipulateChild',
-            // 'click .bindData': 'bindData',
-            // 'click .bindData input': 'inputData',
             'keyup .bindData input': 'typeInput',
             'blur .bindData input': 'inputData',
             'click .createEl': 'createEl',
             'click .enterExit': 'enterExit',
-            // 'click .showCode': 'showCode',
             'click .runCode': 'runCode',
             'click .resetCode': 'resetCode'
         },
@@ -50,9 +47,9 @@ define([
                 $manipulateDiv.addClass('active');
 
                 if ($manipulateDiv.attr('data-type') === 'append') {
-                    this.$('.manipulateChild').removeClass('hidden');
+                    $manipulateDiv.next('.manipulateChild').removeClass('hidden');
                 } else {
-                    this.$('.manipulateChild').addClass('hidden');
+                    $manipulateDiv.next('.manipulateChild').addClass('hidden');
                 }
             }
             
@@ -62,18 +59,11 @@ define([
             if (this.$('.manipulateChild').hasClass('active')) {
                 this.$('.manipulateChild').removeClass('active');
             } else {
+                this.$('.manipulateChild.active').removeClass('active');
                 this.$('.manipulateChild').addClass('active')
             }
             this.toggleShowCode();
         },
-        // bindData: function() {
-        //     if (this.$('.bindData').hasClass('active')) {
-        //         this.$('.bindData').removeClass('active');
-        //     } else {
-        //         this.$('.bindData').addClass('active')
-        //     }
-        //     this.toggleShowCode();
-        // },
         typeInput: function(e) {
             var val = this.$('.bindData input').val();
             val = val.replace(/[^\w\d, ]/g, '');
@@ -109,10 +99,12 @@ define([
                 this.$('.enterExit.active').removeClass('active');
                 $enterExit.addClass('active');
 
-                if ($enterExit.attr('data-val') === 'enter') {
-                    this.$('.manipulateChild').removeClass('hidden');
-                } else {
+                if (($enterExit.attr('data-type') === 'enter')
+                    || ($enterExit.attr('data-type') === 'update')) {
                     this.$('.manipulateChild').addClass('hidden');
+                    $enterExit.next('.manipulateChild').removeClass('hidden');
+                } else {
+                    $enterExit.next('.manipulateChild').addClass('hidden');
                 }
             }
             
@@ -141,17 +133,21 @@ define([
             var selection = this.selectionCode(),
                 data = this.bindDataCode(),
                 manipulate = this.manipulateCode(),
+                create = this.createElCode(),
+                enterExit = this.enterExitCode(),
+                code;
+
+            if (selection) {
                 code = selection 
                     + data
                     + manipulate
                     + ';';
-
-            // if (this.$('.showCode').hasClass('disabled')) {
-            //     // if not showing, then also hide code
-            //     this.$('pre').addClass('hidden');
-            // } else {
-            //     this.$('pre').removeClass('hidden');
-            // }
+            } else if (create) {
+                code = create
+                    + data
+                    + enterExit
+                    + ';';
+            }
 
             if (this.$('pre').hasClass('hidden')) {
                 this.$('.runCode, .resetCode').addClass('hidden');
@@ -163,7 +159,7 @@ define([
         },
         selectionCode: function() {
             var divLength = this.$('.demoDiv.highlight').length,
-                selection;
+                selection = '';
             if (divLength === 1) {
                 var selector;
                 this.$('.demoDiv').each(function(i) {
@@ -178,7 +174,7 @@ define([
                 selection = 'd3.select("' + selector + '")';
             } else if (divLength === 3) {
                 selection = 'd3.selectAll("div")'
-            } else {
+            } else if (divLength === 2) {
                 var selectors = [];
                 this.$('.demoDiv').each(function(i) {
                     if ($(this).hasClass('highlight')) {
@@ -212,8 +208,8 @@ define([
             var manipulate = '',
                 type = this.$('.manipulateDiv.active').attr('data-type'),
                 val = this.$('.manipulateDiv.active').attr('data-val'),
-                child = this.$('.manipulateChild.active'),
-                childVal = this.$('.manipulateChild.active').attr('data-val');
+                $child = this.$('.manipulateChild.active'),
+                childVal = $child.attr('data-val');
 
             if (type === 'text') {
                 if (val) {
@@ -225,7 +221,7 @@ define([
                 manipulate = '\n  .append("' + val + '")';
             }
 
-            if (child.length) {
+            if ($child.length) {
                 if (childVal) {
                     manipulate += '\n    .text("' + childVal + '")';
                 } else {
@@ -234,15 +230,55 @@ define([
             }
             return manipulate;
         },
+        createElCode: function() {
+            var create = '';
+
+            if (this.$('.createEl.active').length) {
+                var val = this.$('.createEl.active').attr('data-val');
+                create = 'd3.selectAll("' + val + '")';
+            }
+
+            return create;
+        },
+        enterExitCode: function() {
+            var enterExit = '',
+                type = this.$('.enterExit.active').attr('data-type'),
+                $child = this.$('.manipulateChild.active');
+
+            if (type === 'enter') {
+                var val = this.$('.createEl.active').attr('data-val');
+                enterExit = '\n  .enter().append("' + val + '")';
+
+                if ($child.length) {
+                    enterExit += '\n    .text(function(d) {return d;})';
+                }
+            } else if (type === 'update') {
+                if ($child.length) {
+                    enterExit += '\n  .text(function(d) {return d;})';
+                }
+            } else if (type === 'exit') {
+                enterExit = '\n  .exit().remove()';
+            }
+
+            return enterExit;
+        },
         runCode: function() {
             // clear demo div's first
             
-            var code = this.$('pre').text();
-            code = code.replace(/div/g, '#' + this.id + ' .demoDiv');
+            var code = this.$('pre').text(),
+                create = this.$('.createEl').length;
+
+            if (create) {
+                code = code.replace('d3', 'd3.select("#' + this.id + ' .demoEnv")');
+            } else {
+                code = code.replace(/div/g, '#' + this.id + ' .demoDiv');
+            }
+            
             new Function(code)();
         },
         resetCode: function() {
             this.$('.demoDiv, .demoDiv h4').empty();
+            this.$('.demoEnv').html('<p></p>')
         }
     });
 })
