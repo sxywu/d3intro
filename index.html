@@ -17,13 +17,13 @@
     <div class="contentBG"></div>
 
     <div class="page" id="titlePage">
-      <div class="title">
+      <div class="title center">
         <h1>An Introduction to d3.js</h1>
       </div>
     </div>
 
     <div class="page">
-      <div class="content">
+      <div class="content center">
         <h2>What is d3.js?</h2>
         <p>
           <strong>d3.js = data-driven-documents</strong>
@@ -135,7 +135,7 @@ d3.select('div');
         </div>
       </div>
       <div class="notes">
-        <strong>Behind the Scenes  <span class="glyphicon glyphicon-thumbs-up"></span></strong>
+        <strong>Behind the Scenes</strong>: binds data to the element
       </div>
     </div>
 
@@ -203,7 +203,67 @@ d3.select('div');
     </div>
 
     <div class="page">
+      <h2><span class="orderNumbers">5</span>Let's bridge the gap: SVG!</h2>
+      <h4>Because let's face it - we're not going to be making anything remotely pretty with HTML.</h4>
 
+      <div class="demo">
+
+        <div class="left span4">
+          <svg>
+            <circle cx="51" cy="51" r="50" fill="#fff" stroke="#000"></circle>
+          </svg>
+          <div>
+            <strong>circle</strong><br>
+            <strong>cx</strong>: x-coordinate of center<br>
+            <strong>cy</strong>: y-coordinate of center<br>
+            <strong>r</strong>: radius<br>
+          </div>
+        </div>
+
+        <div class="left span4">
+          <svg>
+            <rect x="1" y="1" width="100" height="100" fill="#fff" stroke="#000"></rect>
+          </svg>
+          <div>
+            <strong>rect</strong><br>
+            <strong>x</strong>: x-coordinate of top-left<br>
+            <strong>y</strong>: y-coordinate of top-left<br>
+            <strong>width</strong><br>
+            <strong>height</strong><br>
+          </div>
+        </div>
+
+        <div class="left span4">
+          <svg>
+            <line x1="1" y1="51" x2="100" y2="51" fill="#fff" stroke="#000"></line>
+          </svg>
+          <div>
+            <strong>line</strong><br>
+            <strong>x1</strong>: starting x-coordinate<br>
+            <strong>y1</strong>: starting y-coordinate<br>
+            <strong>x2</strong>: ending x-coordinate<br>
+            <strong>y2</strong>: ending y-coordinate<br>
+          </div>
+        </div>
+
+        <div class="left span4">
+          <svg>
+            <text x="1" y="51" dy='.35em' text-anchor="start" fill="#000">Illumio!</text>
+          </svg>
+          <div>
+            <strong>text</strong><br>
+            <strong>x</strong>: x-coordinate<br>
+            <strong>y</strong>: y-coordinate<br>
+            <strong>dx</strong>: x-coordinate offset<br>
+            <strong>dy</strong>: y-coordinate offset<br>
+            <strong>text-anchor</strong>: horizontal text alignment<br>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="page">
+      <h2>Now some live coding!</h2>
     </div>
 	</body>
 </html>

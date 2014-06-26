@@ -25,8 +25,12 @@ define([
                 });
             });
 
-            $('.demo').each(function(value) {
+            $('.demo').each(function() {
                 new PageView({el: this});
+            });
+
+            $('.liveCode').each(function() {
+
             });
 
         }

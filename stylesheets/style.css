@@ -27,7 +27,7 @@
   min-height: 700px;
   position: relative;
   display: table;
-
+  margin-bottom: 100px;
 }
 
 h1, h2, h3, h4, h5 {
@@ -35,13 +35,21 @@ h1, h2, h3, h4, h5 {
 }
 
 .title, .content {
-  display: table-cell;  
-  text-align: center;
+  display: table-cell;
   vertical-align: middle;
 }
 
-.content.left {
-  text-align: left;
+.center {
+  text-align: center;
+}
+
+svg.center {
+  display: block;
+  margin: auto;
+}
+
+.left {
+  float: left;
 }
 
 .title h1 {
@@ -56,6 +64,12 @@ h1, h2, h3, h4, h5 {
   height: 100%;
   color: #666;
   margin: 20px;
+}
+
+.span4 {
+  float: left;
+  width: 19%;
+  padding-right: 20px;
 }
 
 .span3 {
