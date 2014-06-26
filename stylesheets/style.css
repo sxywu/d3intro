@@ -108,11 +108,15 @@ specific DOM elements
   padding: 15px;
 }
 
-.demoDiv h4 {
+.demo h4 {
   margin: 0px;
   padding: 15px;
   width: 100%;
   border: 1px dashed #666;
+}
+
+.demo li {
+
 }
 
 pre {

@@ -78,11 +78,11 @@ d3.select('div');
             <ul class="nav nav-pills nav-stacked">
               <li class="manipulateDiv" data-type="text" data-val="Illumio!"><a>text  <span class="badge badge-primary">"Illumio!"</span></a></li>
               <li class="manipulateDiv" data-type="append" data-val="h4">
-                <a>append  <span class="badge badge-primary">h4</span></a>
+                <a>append  <span class="badge badge-primary">header</span></a>
                 <li class="manipulateChild hidden" data-type="text" data-val="Illumio!"><a>text  <span class="badge badge-primary">"Illumio!"</span></a></li>
               </li>
             </ul>
-            <p class='footnote'>for more ways to manipulate (more power!) 
+            <p class='footnote'>for more ways to manipulate (feel the power!) 
               <a href="https://github.com/mbostock/d3/wiki/Selections" target="new">
                 <span class="glyphicon glyphicon-new-window"></span>
               </a>
@@ -96,36 +96,10 @@ d3.select('div');
             </pre>
           </div>
         </div>
-<!-- 
-        <div class="demo">
-          <h4>A side note about chaining:</h4>
-          <p>The beauty of these languages is that we can chain.  That header element you just appended?  You can manipulate that too.</p>
 
-          <div class="left span3">
-            <div class="demoDiv"></div>
-            <div class="demoDiv"></div>
-            <div class="demoDiv"></div>
-          </div>
-          <div class="left span3">
-            <ul class="nav nav-pills nav-stacked">
-              <li class="manipulateDiv" data-type="text" data-val="Illumio!"><a>text  <span class="badge badge-primary">"Illumio!"</span></a></li>
-              <li class="manipulateDiv" data-type="append" data-val="h4">
-                <a>append  <span class="badge badge-primary">h4</span></a>
-                <li class="manipulateChild hidden" data-type="text" data-val="Illumio!"><a>text  <span class="badge badge-primary">"Illumio!"</span></a></li>
-              </li>
-            </ul>
-          </div>
-          <div class="left span3">
-            <span class="btn btn-default disabled showCode">show code</span>
-            <span class="btn btn-default disabled runCode">run code</span>
-            <pre class="hidden">
-d3.select('div');
-            </pre>
-          </div>
-
-        </div> -->
       </div>
       <div class="notes">
+        <strong>Iterating</strong><br>
         <strong>Chaining</strong>
       </div>
     </div>
@@ -147,10 +121,72 @@ d3.select('div');
             <ul class="nav nav-pills nav-stacked">
               <li class="manipulateDiv" data-type="text"><a>text</a></li>
               <li class="manipulateDiv" data-type="append" data-val="h4">
-                <a>append  <span class="badge badge-primary">h4</span></a>
+                <a>append  <span class="badge badge-primary">header</span></a>
                 <li class="manipulateChild hidden" data-type="text"><a>text</a></li>
               </li>
             </ul>
+          </div>
+          <div class="left span3">
+            <span class="btn btn-default disabled showCode">show code</span>
+            <span class="btn btn-default disabled runCode">run code</span>
+            <pre class="hidden">
+d3.select('div');
+            </pre>
+          </div>
+        </div>
+      </div>
+      <div class="notes">
+
+      </div>
+    </div>
+
+    <div class="page">
+      <div class="content left">
+        <h2><span class="orderNumbers">4</span>We can grab things that don't yet exist.  (What sorcery!)</h2>
+        <h4>It's absolute witchcraft, so let's walk through this together.  We'll hold hands.</h4>
+        <div class="demo">
+          <div class="left span3">
+            <p></p>
+          </div>
+          <div class="left span3">
+            <div>
+              <p>
+                <div class="badge">1</div>  we tell d3 what we want:
+              </p>
+              <ul class="nav nav-pills nav-stacked">
+                <li class="createEl"><a>div</a></li>
+                <li class="createEl"><a>header</a></li>
+                <li class="createEl"><a>div</a></li>
+              </ul>
+            </div>
+            <hr>
+
+            <div>
+              <p>
+                <div class="badge">2</div>  we tell d3 what the data is:
+              </p>
+              <ul class="nav nav-pills nav-stacked">
+                <li class="bindData"><a>data: [ <input type="text"></input> ]</a></li>
+              </ul>
+            </div>
+            <hr>
+            
+            <div>
+              <p>
+                <div class="badge">3</div>  and here's the absolute <span class="emp">magic</span>:
+              </p>
+              <ul class="nav nav-pills nav-stacked">
+                <li class="enterExit"><a>enter-append</a></li>
+                <li class="enterExit"><a>exit-remove</a></li>
+              </ul>
+            </div>
+
+            <div>
+              <hr>
+              <ul class="nav nav-pills nav-stacked">
+                <li class="manipulateDiv" data-type="text"><a>text</a></li>
+              </ul>
+            </div>
           </div>
           <div class="left span3">
             <span class="btn btn-default disabled showCode">show code</span>
