@@ -20,6 +20,7 @@ define([
             'click .manipulateChild': 'manipulateChild',
             // 'click .bindData': 'bindData',
             // 'click .bindData input': 'inputData',
+            'keyup .bindData input': 'typeInput',
             'blur .bindData input': 'inputData',
             'click .showCode': 'showCode',
             'click .runCode': 'runCode'
@@ -68,6 +69,12 @@ define([
         //     }
         //     this.toggleShowCode();
         // },
+        typeInput: function(e) {
+            var val = this.$('.bindData input').val();
+            val = val.replace(/[^\w\d, ]/g, '');
+
+            this.$('.bindData input').val(val);
+        },
         inputData: function(e) {
             e.stopPropagation();
             if (this.$('.bindData input').val()) {
