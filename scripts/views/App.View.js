@@ -4,14 +4,16 @@ define([
     "backbone",
     "d3",
     "app/visualizations/Hood.Visualization",
-    "app/views/Page.View"
+    "app/views/Page.View",
+    "app/views/Code.View"
 ], function(
     $,
     _,
     Backbone,
     d3,
     HoodVisualization,
-    PageView
+    PageView,
+    CodeView
 ) {
     return Backbone.View.extend({
         render: function() {
@@ -30,7 +32,7 @@ define([
             });
 
             $('.liveCode').each(function() {
-
+                new CodeView({el: this});
             });
 
         }
