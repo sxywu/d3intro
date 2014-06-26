@@ -18,6 +18,9 @@ define([
             'click .demoDiv': 'clickDiv',
             'click .manipulateDiv': 'manipulateDiv',
             'click .manipulateChild': 'manipulateChild',
+            // 'click .bindData': 'bindData',
+            // 'click .bindData input': 'inputData',
+            'blur .bindData input': 'inputData',
             'click .showCode': 'showCode',
             'click .runCode': 'runCode'
         },
@@ -57,13 +60,32 @@ define([
             }
             this.toggleShowCode();
         },
+        // bindData: function() {
+        //     if (this.$('.bindData').hasClass('active')) {
+        //         this.$('.bindData').removeClass('active');
+        //     } else {
+        //         this.$('.bindData').addClass('active')
+        //     }
+        //     this.toggleShowCode();
+        // },
+        inputData: function(e) {
+            e.stopPropagation();
+            if (this.$('.bindData input').val()) {
+                this.$('.bindData').addClass('active');
+            } else {
+                this.$('.bindData').removeClass('active');
+            }
+            this.toggleShowCode();
+        },
         /* toggle show code button */
         toggleShowCode: function() {
             var demoHighlighted = this.$('.demoDiv.highlight').length,
                 manipulateActivated = this.$('.manipulateDiv').length ?
-                    this.$('.manipulateDiv.active').length : true;
+                    this.$('.manipulateDiv.active').length : true,
+                bindDataActivated = this.$('.bindData').length ?
+                    this.$('.bindData.active input').val() : true;
 
-            if (demoHighlighted && manipulateActivated) {
+            if (demoHighlighted && (manipulateActivated || bindDataActivated)) {
                 this.$('.showCode').removeClass('disabled');
             } else {
                 this.$('.showCode').addClass('disabled')
@@ -73,8 +95,10 @@ define([
         showCode: function(e) {
             // get the selected div's
             var selection = this.selectionCode(),
+                data = this.bindDataCode(),
                 manipulate = this.manipulateCode(),
                 code = selection 
+                    + data
                     + manipulate
                     + ';';
 
@@ -123,24 +147,47 @@ define([
             
             return selection;    
         },
+        bindDataCode: function() {
+            var divLength = this.$('.demoDiv.highlight').length,
+                val = this.$('.bindData input').val(),
+                data = '';
+
+            if (val) {
+                val = val.split(', ').map(function(val) {
+                    console.log(_.isString(val), _.isNumber(val));
+                    val = val.replace(/"/g, '');
+                    return '"' + val + '"';
+                }).join(', ');
+
+
+                data = '\n  .' + (divLength === 1 ? 'datum' : 'data') + '([' + val + '])';
+            }
+            
+            return data;
+        },
         manipulateCode: function() {
             var manipulate = '',
                 type = this.$('.manipulateDiv.active').attr('data-type'),
                 val = this.$('.manipulateDiv.active').attr('data-val'),
-                child = this.$('.manipulateChild.active');
+                child = this.$('.manipulateChild.active'),
+                childVal = this.$('.manipulateChild.active').attr('data-val');
 
             if (type === 'text') {
                 if (val) {
                     manipulate = '\n  .text("' + val + '")';
+                } else {
+                    manipulate = '\n  .text(function(d) {return d;})'
                 }
             } else if (type === 'append') {
-                if (val) {
-                    manipulate = '\n  .append("' + val + '")';
-                }
+                manipulate = '\n  .append("' + val + '")';
             }
 
             if (child.length) {
-                manipulate += '\n    .text("Illumio!")';
+                if (childVal) {
+                    manipulate += '\n    .text("' + childVal + '")';
+                } else {
+                    manipulate += '\n    .text(function(d) {return d;})'
+                }
             }
             return manipulate;
         },
@@ -149,7 +196,7 @@ define([
             this.$('.demoDiv, .demoDiv h4').empty();
 
             var code = this.$('pre').text();
-            code = code.replace(/\s/g, '').replace(/div/g, '#' + this.id + ' .demoDiv');
+            code = code.replace(/div/g, '#' + this.id + ' .demoDiv');
             new Function(code)();
         }
     });

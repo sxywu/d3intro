@@ -141,11 +141,15 @@ d3.select('div');
           </div>
           <div class="left span3">
             <ul class="nav nav-pills nav-stacked">
-              <li class="bindData"><a>data: [<input type="text"></input>]</a></li>
+              <li class="bindData"><a>data: [ <input type="text"></input> ]</a></li>
             </ul>
+            <hr>
             <ul class="nav nav-pills nav-stacked">
               <li class="manipulateDiv" data-type="text"><a>text</a></li>
-              <li class="manipulateDiv" data-type="append"><a>append</a></li>
+              <li class="manipulateDiv" data-type="append" data-val="h4">
+                <a>append  <span class="badge badge-primary">h4</span></a>
+                <li class="manipulateChild hidden" data-type="text"><a>text</a></li>
+              </li>
             </ul>
           </div>
           <div class="left span3">

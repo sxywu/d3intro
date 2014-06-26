@@ -132,3 +132,11 @@ pre {
   font-size: .85em;
   margin: 15px;
 }
+
+/**
+dealing with bootstrap
+*/
+
+.nav-pills > li.active > a input, .nav-pills > li.active > a:focus input {
+  color: #428bca;
+}
