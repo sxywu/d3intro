@@ -52,7 +52,7 @@
             <div class="demoDiv"></div>
           </div>
           <div class="left span3">
-            <span class="btn btn-default disabled showCode">show code</span>
+<!--             <span class="btn btn-default disabled showCode">show code</span> -->
             <pre class="hidden">
 d3.select('div');
             </pre>
@@ -60,7 +60,6 @@ d3.select('div');
         </div>
       </div>
       <div class="notes">
-        <strong>Behind the Scenes  <span class="glyphicon glyphicon-thumbs-up"></span></strong>
       </div>
     </div>
 
@@ -78,7 +77,7 @@ d3.select('div');
             <ul class="nav nav-pills nav-stacked">
               <li class="manipulateDiv" data-type="text" data-val="Illumio!"><a>text  <span class="badge badge-primary">"Illumio!"</span></a></li>
               <li class="manipulateDiv" data-type="append" data-val="h4">
-                <a>append  <span class="badge badge-primary">header</span></a>
+                <a>append  <span class="badge badge-primary">h4</span></a>
                 <li class="manipulateChild hidden" data-type="text" data-val="Illumio!"><a>text  <span class="badge badge-primary">"Illumio!"</span></a></li>
               </li>
             </ul>
@@ -89,11 +88,11 @@ d3.select('div');
             </p>
           </div>
           <div class="left span3">
-            <span class="btn btn-default disabled showCode">show code</span>
-            <span class="btn btn-default disabled runCode">run code</span>
             <pre class="hidden">
 d3.select('div');
             </pre>
+            <span class="btn btn-default hidden runCode">run code</span>
+            <span class="btn btn-default hidden resetCode">reset</span>
           </div>
         </div>
 
@@ -121,31 +120,31 @@ d3.select('div');
             <ul class="nav nav-pills nav-stacked">
               <li class="manipulateDiv" data-type="text"><a>text</a></li>
               <li class="manipulateDiv" data-type="append" data-val="h4">
-                <a>append  <span class="badge badge-primary">header</span></a>
+                <a>append  <span class="badge badge-primary">h4</span></a>
                 <li class="manipulateChild hidden" data-type="text"><a>text</a></li>
               </li>
             </ul>
           </div>
           <div class="left span3">
-            <span class="btn btn-default disabled showCode">show code</span>
-            <span class="btn btn-default disabled runCode">run code</span>
             <pre class="hidden">
 d3.select('div');
             </pre>
+            <span class="btn btn-default hidden runCode">run code</span>
+            <span class="btn btn-default hidden resetCode">reset</span>
           </div>
         </div>
       </div>
       <div class="notes">
-
+        <strong>Behind the Scenes  <span class="glyphicon glyphicon-thumbs-up"></span></strong>
       </div>
     </div>
 
     <div class="page">
       <div class="content left">
         <h2><span class="orderNumbers">4</span>We can grab things that don't yet exist.  (What sorcery!)</h2>
-        <h4>It's absolute witchcraft, so let's walk through this together.  We'll hold hands.</h4>
+        <h4>It's absolute witchcraft, so let's work through this together.  We'll hold hands.</h4>
         <div class="demo">
-          <div class="left span3">
+          <div class="left span3 demoEnv">
             <p></p>
           </div>
           <div class="left span3">
@@ -154,9 +153,9 @@ d3.select('div');
                 <div class="badge">1</div>  we tell d3 what we want:
               </p>
               <ul class="nav nav-pills nav-stacked">
-                <li class="createEl"><a>div</a></li>
-                <li class="createEl"><a>header</a></li>
-                <li class="createEl"><a>div</a></li>
+                <li class="createEl" data-val="div"><a>div</a></li>
+                <li class="createEl" data-val="h4"><a>h4</a></li>
+                <li class="createEl" data-val="li"><a>li</a></li>
               </ul>
             </div>
             <hr>
@@ -173,33 +172,34 @@ d3.select('div');
             
             <div>
               <p>
-                <div class="badge">3</div>  and here's the absolute <span class="emp">magic</span>:
+                <div class="badge">3</div>  and here's the <span class="emp">magic</span>:
               </p>
               <ul class="nav nav-pills nav-stacked">
-                <li class="enterExit"><a>enter-append</a></li>
-                <li class="enterExit"><a>exit-remove</a></li>
+                <li class="enterExit" data-val="enter">
+                  <a>enter-append</a>
+                  <li class="manipulateChild hidden" data-type="text"><a>text</a></li>
+                </li>
+                <li class="enterExit" data-val="exit"><a>exit-remove</a></li>
               </ul>
             </div>
 
-            <div>
-              <hr>
-              <ul class="nav nav-pills nav-stacked">
-                <li class="manipulateDiv" data-type="text"><a>text</a></li>
-              </ul>
-            </div>
           </div>
           <div class="left span3">
-            <span class="btn btn-default disabled showCode">show code</span>
-            <span class="btn btn-default disabled runCode">run code</span>
             <pre class="hidden">
 d3.select('div');
             </pre>
+            <span class="btn btn-default hidden runCode">run code</span>
+            <span class="btn btn-default hidden resetCode">reset</span>
           </div>
         </div>
       </div>
       <div class="notes">
-
+        <strong>The magic</strong>: join
       </div>
+    </div>
+
+    <div class="page">
+
     </div>
 	</body>
 </html>

@@ -23,8 +23,11 @@ define([
             // 'click .bindData input': 'inputData',
             'keyup .bindData input': 'typeInput',
             'blur .bindData input': 'inputData',
-            'click .showCode': 'showCode',
-            'click .runCode': 'runCode'
+            'click .createEl': 'createEl',
+            'click .enterExit': 'enterExit',
+            // 'click .showCode': 'showCode',
+            'click .runCode': 'runCode',
+            'click .resetCode': 'resetCode'
         },
         clickDiv: function(e) {
             var $div = ($(e.target).is('.demoDiv') ? $(e.target) : $(e.target).parents('.demoDiv'))
@@ -86,18 +89,50 @@ define([
             }
             this.toggleShowCode();
         },
+        createEl: function(e) {
+            var $createEl = ($(e.target).is('.createEl') ? $(e.target) : $(e.target).parents('.createEl'));
+            
+            if ($createEl.hasClass('active')) {
+                $createEl.removeClass('active');
+            } else {
+                this.$('.createEl.active').removeClass('active');
+                $createEl.addClass('active');
+            }
+            this.toggleShowCode();
+        },
+        enterExit: function(e) {
+            var $enterExit = ($(e.target).is('.enterExit') ? $(e.target) : $(e.target).parents('.enterExit'));
+            
+            if ($enterExit.hasClass('active')) {
+                $enterExit.removeClass('active');
+            } else {
+                this.$('.enterExit.active').removeClass('active');
+                $enterExit.addClass('active');
+
+                if ($enterExit.attr('data-val') === 'enter') {
+                    this.$('.manipulateChild').removeClass('hidden');
+                } else {
+                    this.$('.manipulateChild').addClass('hidden');
+                }
+            }
+            
+            this.toggleShowCode();
+        },
         /* toggle show code button */
         toggleShowCode: function() {
             var demoHighlighted = this.$('.demoDiv.highlight').length,
                 manipulateActivated = this.$('.manipulateDiv').length ?
                     this.$('.manipulateDiv.active').length : true,
                 bindDataActivated = this.$('.bindData').length ?
-                    this.$('.bindData.active input').val() : true;
+                    this.$('.bindData.active input').val() : true,
+                createEl = this.$('.createEl.active').length,
+                enterExit = this.$('.enterExit.active').length;
 
-            if (demoHighlighted && manipulateActivated && bindDataActivated) {
-                this.$('.showCode').removeClass('disabled');
+            if ((demoHighlighted && manipulateActivated && bindDataActivated)
+                || (createEl && bindDataActivated && enterExit)) {
+                this.$('pre').removeClass('hidden');
             } else {
-                this.$('.showCode').addClass('disabled')
+                this.$('pre').addClass('hidden')
             }
             this.showCode();
         },
@@ -111,18 +146,17 @@ define([
                     + manipulate
                     + ';';
 
-            if (this.$('.showCode').hasClass('disabled')) {
-                // if not showing, then also hide code
-                this.$('pre').addClass('hidden');
-            } else if (e) {
-                // only show code if it's been clicked
-                this.$('pre').removeClass('hidden');
-            }
+            // if (this.$('.showCode').hasClass('disabled')) {
+            //     // if not showing, then also hide code
+            //     this.$('pre').addClass('hidden');
+            // } else {
+            //     this.$('pre').removeClass('hidden');
+            // }
 
             if (this.$('pre').hasClass('hidden')) {
-                this.$('.runCode').addClass('disabled');
+                this.$('.runCode, .resetCode').addClass('hidden');
             } else {
-                this.$('.runCode').removeClass('disabled');
+                this.$('.runCode, .resetCode').removeClass('hidden');
             }
 
             this.$('pre').text(code);
@@ -202,11 +236,13 @@ define([
         },
         runCode: function() {
             // clear demo div's first
-            // this.$('.demoDiv, .demoDiv h4').empty();
-
+            
             var code = this.$('pre').text();
             code = code.replace(/div/g, '#' + this.id + ' .demoDiv');
             new Function(code)();
+        },
+        resetCode: function() {
+            this.$('.demoDiv, .demoDiv h4').empty();
         }
     });
 })
