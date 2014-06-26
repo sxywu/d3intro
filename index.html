@@ -7,7 +7,7 @@
 		<title>Intro to D3.js</title>
 
 	    <link rel="stylesheet" href="stylesheets/bootstrap.css" type="text/css" />
-		<link rel="stylesheet" href="stylesheets/style.css">
+  		<link rel="stylesheet" href="stylesheets/style.css">
 	    <script data-main="scripts/main" src="scripts/contrib/require-jquery.js"></script>
 
 	</head>
@@ -24,7 +24,10 @@
 
     <div class="page">
       <div class="content">
-        <h2>d3.js: data-driven documents</h2>
+        <h2>What is d3.js?</h2>
+        <p>
+          <strong>d3.js = data-driven-documents</strong>
+        </p>
         <p>
           d3.js is not a data visualization library.  It will not draw anything for you.
         </p>
@@ -49,7 +52,7 @@
             <div class="demoDiv"></div>
           </div>
           <div class="left span3">
-            <span class="btn btn-default disabled">show code</span>
+            <span class="btn btn-default disabled showCode">show code</span>
             <pre class="hidden">
 d3.select('div');
             </pre>
@@ -57,35 +60,73 @@ d3.select('div');
         </div>
       </div>
       <div class="notes">
-
+        <strong>Behind the Scenes  <span class="glyphicon glyphicon-thumbs-up"></span></strong>
       </div>
     </div>
 
     <div class="page">
       <div class="content left">
         <h2><span class="orderNumbers">2</span>We can manipulate the things we grabbed.</h2>
+        
         <div class="demo">
           <div class="left span3">
             <div class="demoDiv"></div>
             <div class="demoDiv"></div>
             <div class="demoDiv"></div>
           </div>
-         <div class="left span3">
+          <div class="left span3">
             <ul class="nav nav-pills nav-stacked">
-              <li><a>text  <span class="badge badge-primary">"Illumio!"</span></a></li>
-              <li><a>append  <span class="badge badge-primary">h4</span></a></li>
+              <li class="manipulateDiv" data-type="text" data-val="Illumio!"><a>text  <span class="badge badge-primary">"Illumio!"</span></a></li>
+              <li class="manipulateDiv" data-type="append" data-val="h4">
+                <a>append  <span class="badge badge-primary">h4</span></a>
+                <li class="manipulateChild hidden" data-type="text" data-val="Illumio!"><a>text  <span class="badge badge-primary">"Illumio!"</span></a></li>
+              </li>
             </ul>
+            <p class='footnote'>for more ways to manipulate (more power!) 
+              <a href="https://github.com/mbostock/d3/wiki/Selections" target="new">
+                <span class="glyphicon glyphicon-new-window"></span>
+              </a>
+            </p>
           </div>
           <div class="left span3">
-            <span class="btn btn-default disabled">show code</span>
+            <span class="btn btn-default disabled showCode">show code</span>
+            <span class="btn btn-default disabled runCode">run code</span>
             <pre class="hidden">
 d3.select('div');
             </pre>
           </div>
         </div>
+<!-- 
+        <div class="demo">
+          <h4>A side note about chaining:</h4>
+          <p>The beauty of these languages is that we can chain.  That header element you just appended?  You can manipulate that too.</p>
+
+          <div class="left span3">
+            <div class="demoDiv"></div>
+            <div class="demoDiv"></div>
+            <div class="demoDiv"></div>
+          </div>
+          <div class="left span3">
+            <ul class="nav nav-pills nav-stacked">
+              <li class="manipulateDiv" data-type="text" data-val="Illumio!"><a>text  <span class="badge badge-primary">"Illumio!"</span></a></li>
+              <li class="manipulateDiv" data-type="append" data-val="h4">
+                <a>append  <span class="badge badge-primary">h4</span></a>
+                <li class="manipulateChild hidden" data-type="text" data-val="Illumio!"><a>text  <span class="badge badge-primary">"Illumio!"</span></a></li>
+              </li>
+            </ul>
+          </div>
+          <div class="left span3">
+            <span class="btn btn-default disabled showCode">show code</span>
+            <span class="btn btn-default disabled runCode">run code</span>
+            <pre class="hidden">
+d3.select('div');
+            </pre>
+          </div>
+
+        </div> -->
       </div>
       <div class="notes">
-
+        <strong>Chaining</strong>
       </div>
     </div>
 
@@ -100,12 +141,16 @@ d3.select('div');
           </div>
           <div class="left span3">
             <ul class="nav nav-pills nav-stacked">
-              <li><a>text</a></li>
-              <li><a>append</a></li>
+              <li class="bindData"><a>data: [<input type="text"></input>]</a></li>
+            </ul>
+            <ul class="nav nav-pills nav-stacked">
+              <li class="manipulateDiv" data-type="text"><a>text</a></li>
+              <li class="manipulateDiv" data-type="append"><a>append</a></li>
             </ul>
           </div>
           <div class="left span3">
-            <span class="btn btn-default disabled">show code</span>
+            <span class="btn btn-default disabled showCode">show code</span>
+            <span class="btn btn-default disabled runCode">run code</span>
             <pre class="hidden">
 d3.select('div');
             </pre>

@@ -54,20 +54,26 @@ h1, h2, h3, h4, h5 {
 
 .notes {
   height: 100%;
+  color: #666;
+  margin: 20px;
 }
 
 .span3 {
   float: left;
   width: 32%;
+  padding-right: 20px;
 }
 
 .span2 {
   float: left;
   width: 49%;
+  padding-right: 20px;
 }
 
 .demo {
   margin: 40px;
+  width: 90%;
+  float: left;
 }
 
 .emp {
@@ -95,18 +101,34 @@ specific DOM elements
 }
 
 .demoDiv {
-  width: 90%;
   height: 75px;
   border-radius: 3px;
   border: 1px solid #666;
   margin-bottom: 20px;
-  padding: 5px;
+  padding: 15px;
+}
+
+.demoDiv h4 {
+  margin: 0px;
+  padding: 15px;
+  width: 100%;
+  border: 1px dashed #666;
 }
 
 pre {
   margin: 20px 0;
 }
 
-.manipulate {
-  border: 1px dashed #666;
+.nav-stacked > .manipulateChild {
+  margin-left: 40px;
+}
+
+.highlight {
+  border: 3px solid #428bca; /*blue*/
+  background-color: rgba(66, 139, 202, .05);
+}
+
+.footnote {
+  font-size: .85em;
+  margin: 15px;
 }

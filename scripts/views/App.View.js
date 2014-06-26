@@ -3,13 +3,15 @@ define([
     "underscore",
     "backbone",
     "d3",
-    "app/visualizations/Hood.Visualization"
+    "app/visualizations/Hood.Visualization",
+    "app/views/Page.View"
 ], function(
     $,
     _,
     Backbone,
     d3,
-    HoodVisualization
+    HoodVisualization,
+    PageView
 ) {
     return Backbone.View.extend({
         render: function() {
@@ -23,7 +25,10 @@ define([
                 });
             });
 
-            
+            $('.demo').each(function(value) {
+                new PageView({el: this});
+            });
+
         }
     });
 })
