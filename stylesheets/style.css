@@ -135,7 +135,7 @@ specific DOM elements
   visibility: hidden;
 }
 
-.demoDiv p {
+.demoContainer p {
   font-size: .85em;
   color: #999;
 

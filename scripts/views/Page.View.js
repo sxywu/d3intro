@@ -16,7 +16,6 @@ define([
 
             this.elTop = this.$('.demo').offset().top;
             this.elBottom = this.$('.demo:last').offset().top + this.$('.demo:last').outerHeight();
-            this.containerHeight = this.$('.demoContainer').height();
 
             $(window).scroll(_.bind(this.windowScroll, this));
         },
@@ -26,7 +25,6 @@ define([
             'click .manipulateDiv': 'manipulateDiv',
             'click .manipulateChild': 'manipulateChild',
             'keyup .bindData input': 'typeInput',
-            'click .bindData': 'inputData',
             'blur .bindData input': 'inputData',
             'click .createEl': 'createEl',
             'click .enterExit': 'enterExit',
@@ -35,6 +33,7 @@ define([
         },
         windowScroll: function(e) {
             var top = $(window).scrollTop();
+            this.containerHeight = this.$('.demoContainer').height();
             if ((top > this.elTop) && ((top + this.containerHeight) < this.elBottom)) {
                 this.$('.demoContainer, .codeContainer')
                     .addClass('fixed')
@@ -85,18 +84,21 @@ define([
             this.toggleShowCode();
         },
         typeInput: function(e) {
-            var val = this.$('.bindData input').val();
+            var val = $(e.target).val();
             val = val.replace(/[^\w\d, ]/g, '');
 
-            this.$('.bindData input').val(val);
+            $(e.target).val(val);
             this.$('.bindData span').text(val);
         },
         inputData: function(e) {
             e.stopPropagation();
-            if (this.$('.bindData input').val()) {
-                this.$('.bindData').addClass('active');
+
+            var $bindData = ($(e.target).is('.bindData') ? $(e.target) : $(e.target).parents('.bindData'));
+            if ($bindData.find('input').val()) {
+                this.$('.bindData.active').removeClass('active');
+                $bindData.addClass('active');
             } else {
-                this.$('.bindData').removeClass('active');
+                $bindData.removeClass('active');
             }
             this.toggleShowCode();
         },
@@ -210,7 +212,7 @@ define([
         },
         bindDataCode: function() {
             var divLength = this.$('.demoDiv.highlight').length,
-                val = this.$('.bindData input').val(),
+                val = this.$('.bindData.active input').val(),
                 data = '';
 
             if (val) {
@@ -288,29 +290,32 @@ define([
             // clear demo div's first
             
             var code = this.$('pre').text(),
-                manipulateActivated = this.$('.manipulateDiv').length ?
-                    this.$('.manipulateDiv.active').length : true,
                 bindDataActivated = this.$('.bindData').length ?
                     this.$('.bindData.active input').val() : true,
-                create = this.$('.createEl').length,
-                enterExit = this.$('.enterExit.active').length;
-
-            if (bindDataActivated) {
-                this.$('.demoDiv p').remove();
-                var dataCode = 'd3.selectAll("#' + this.id + ' .highlight")';
-                dataCode += this.bindDataCode();
-                dataCode += '.insert("p", "div, li, h4").text(function(d) {return "__data__: " + d;})'
-
-                new Function(dataCode)();
-            }
+                create = this.$('.createEl').length;
 
             if (create) {
                 code = code.replace('d3', 'd3.select("#' + this.id + ' .demoEnv .demoContainer")');
             } else {
                 code = code.replace(/div/g, '#' + this.id + ' .demoDiv');
             } 
-            
+
             new Function(code)();
+
+            if (bindDataActivated) {
+                if (create) {
+                    this.$('.demoContainer p').remove();
+                    var dataCode = this.createElCode()
+                        .replace('d3', 'd3.select("#' + this.id + ' .demoContainer")');
+                } else {
+                    this.$('.demoDiv p').remove();
+                    var dataCode = 'd3.selectAll("#' + this.id + ' .highlight")';
+                }
+                dataCode += this.bindDataCode();
+                dataCode += '.insert("p", "h4").text(function(d) {return "__data__: " + d;})'
+
+                new Function(dataCode)();
+            }
         },
         resetCode: function() {
             this.$('.demoDiv, .demoDiv h4').empty();

@@ -109,7 +109,10 @@ d3.select('div');
             <p></p>
           </div>
           <div class="left span3">
-            <span class="emp">Now try appending a header (h4)</span>:
+            <p>
+              <span class="emp">Now try appending a header (h4)</span><br>
+              and giving it some text:
+            </p>
 
             <ul class="nav nav-pills nav-stacked">
               <li class="manipulateDiv" data-type="append" data-val="h4">
@@ -172,6 +175,10 @@ d3.select('div');
             <p></p>
           </div>
           <div class="left span3">
+            <p>Now that we have the data,
+              <span class="emp">let's use it to manipulate the div</span>:
+            </p>
+
             <ul class="nav nav-pills nav-stacked">
               <li class="bindData"><a>data: [ <span></span> ]</a></li>
             </ul>
@@ -187,7 +194,6 @@ d3.select('div');
       </div>
 
       <div class="notes">
-        <strong>Behind the Scenes</strong>: binds data to the element
       </div>
     </div>
 
@@ -233,11 +239,6 @@ d3.select('div');
                   <a>enter-append</a>
                   <li class="manipulateChild hidden" data-type="text"><a>text</a></li>
                 </li>
-                <li class="enterExit" data-type="update">
-                  <a>update</a>
-                  <li class="manipulateChild hidden" data-type="text"><a>text</a></li>
-                </li>
-                <li class="enterExit" data-type="exit"><a>exit-remove</a></li>
               </ul>
             </div>
 
@@ -250,6 +251,40 @@ d3.select('div');
             <span class="btn btn-default hidden resetCode">reset</span>
           </div>
         </div>
+
+        <div class="demo">
+          <div class="left span3 demoEnv">
+            <p></p>
+          </div>
+          <div class="left span3">
+            <p>Now that we've rendered the initial data
+              <span class="emp">let's change the data and update accordingly</span>:
+            </p>
+
+            <div>
+              <ul class="nav nav-pills nav-stacked">
+                <li class="bindData"><a>data: [ <input type="text"></input> ]</a></li>
+              </ul>
+            </div>
+            <hr>
+            
+            <div>
+              <ul class="nav nav-pills nav-stacked">
+                <li class="enterExit" data-type="enter">
+                  <a>enter-append</a>
+                  <li class="manipulateChild hidden" data-type="text"><a>text</a></li>
+                </li>
+                <li class="enterExit" data-type="update">
+                  <a>update</a>
+                  <li class="manipulateChild hidden" data-type="text"><a>text</a></li>
+                </li>
+                <li class="enterExit" data-type="exit"><a>exit-remove</a></li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+
       </div>
       <div class="notes">
         <strong>The magic</strong>: join
@@ -321,16 +356,7 @@ d3.select('div');
     </div>
 
     <div class="page fullPage">
-      <h2>Now some live coding!  </h2>
-
-      <div class="liveCode">
-        <textarea class="span3"></textarea>
-        <svg>
-
-        </svg>
-
-        <div class="btn btn-default runCode">run code</div>
-      </div>
+      <h2>Some resources</h2>
     </div>
 	</body>
 </html>
