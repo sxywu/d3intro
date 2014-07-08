@@ -115,12 +115,24 @@ specific DOM elements
   margin-right: 10px;
 }
 
+.demoContainer {
+  padding-top: 20px;
+}
+
+.demoContainer.fixed, .codeContainer.fixed {
+  position: relative;
+}
+
 .demoDiv, .demoEnv div {
-  height: 75px;
+  min-height: 75px;
   border-radius: 3px;
   border: 1px solid #666;
   margin-bottom: 20px;
   padding: 15px;
+}
+
+.demoDiv.noVis {
+  visibility: hidden;
 }
 
 .demo h4 {
@@ -138,7 +150,7 @@ specific DOM elements
 }
 
 pre {
-  margin-bottom: 20px;
+  margin: 20px 0;
 }
 
 .nav-stacked > .manipulateChild {

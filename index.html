@@ -42,16 +42,25 @@
       </div>
     </div>
 
-    <div class="page">
+    <div class="page demoPage">
       <div class="content left">
         <h2><span class="orderNumbers">1</span>We can use it to grab something on the screen</h2>
+        <div class="subheader">
+          <div class="left span3">
+            <div></div>
+          </div>
+        </div>
         <div class="demo">
           <div class="left span3">
-            <div class="demoDiv"></div>
-            <div class="demoDiv"></div>
-            <div class="demoDiv"></div>
+            <div class="demoContainer">
+              <div class="demoDiv"></div>
+              <div class="demoDiv"></div>
+              <div class="demoDiv"></div>
+            </div>
+            <p></p>
           </div>
-          <div class="left span3">
+          <div class="left span3 codeContainer">
+            <span class="emp">Grab one of the boxes (a "div")</span>.
 <!--             <span class="btn btn-default disabled showCode">show code</span> -->
             <pre class="hidden">
 d3.select('div');
@@ -63,19 +72,46 @@ d3.select('div');
       </div>
     </div>
 
-    <div class="page">
+    <div class="page demoPage">
       <div class="content left">
         <h2><span class="orderNumbers">2</span>We can manipulate the things we grabbed.</h2>
         
         <div class="demo">
           <div class="left span3">
-            <div class="demoDiv"></div>
-            <div class="demoDiv"></div>
-            <div class="demoDiv"></div>
+            <div class="demoContainer">
+              <div class="demoDiv"></div>
+              <div class="demoDiv"></div>
+              <div class="demoDiv"></div>
+            </div>
+            <p></p>
           </div>
           <div class="left span3">
+            <span class="emp">Try giving the div(s) some text</span>:
+
             <ul class="nav nav-pills nav-stacked">
               <li class="manipulateDiv" data-type="text" data-val="Illumio!"><a>text  <span class="badge badge-primary">"Illumio!"</span></a></li>
+            </ul>
+          </div>
+          <div class="left span3 codeContainer">
+            <pre class="hidden">
+d3.select('div');
+            </pre>
+            <span class="btn btn-default hidden runCode">run code</span>
+            <span class="btn btn-default hidden resetCode">reset</span>
+          </div>
+        </div>
+
+        <div class="demo">
+          <div class="left span3">
+            <div class="demoDiv noVis"></div>
+            <div class="demoDiv noVis"></div>
+            <div class="demoDiv noVis"></div>
+            <p></p>
+          </div>
+          <div class="left span3">
+            <span class="emp">Now try appending a header (h4)</span>:
+
+            <ul class="nav nav-pills nav-stacked">
               <li class="manipulateDiv" data-type="append" data-val="h4">
                 <a>append  <span class="badge badge-primary">h4</span></a>
                 <li class="manipulateChild hidden" data-type="text" data-val="Illumio!"><a>text  <span class="badge badge-primary">"Illumio!"</span></a></li>
@@ -88,11 +124,7 @@ d3.select('div');
             </p>
           </div>
           <div class="left span3">
-            <pre class="hidden">
-d3.select('div');
-            </pre>
-            <span class="btn btn-default hidden runCode">run code</span>
-            <span class="btn btn-default hidden resetCode">reset</span>
+            <p></p>
           </div>
         </div>
 
@@ -103,14 +135,17 @@ d3.select('div');
       </div>
     </div>
 
-    <div class="page">
+    <div class="page demoPage">
       <div class="content left">
         <h2><span class="orderNumbers">3</span>We can bind data to the things we grabbed.</h2>
         <div class="demo">
           <div class="left span3">
-            <div class="demoDiv"></div>
-            <div class="demoDiv"></div>
-            <div class="demoDiv"></div>
+            <div class="demoContainer">
+              <div class="demoDiv"></div>
+              <div class="demoDiv"></div>
+              <div class="demoDiv"></div>
+            </div>
+            <p></p>
           </div>
           <div class="left span3">
             <ul class="nav nav-pills nav-stacked">
@@ -125,7 +160,7 @@ d3.select('div');
               </li>
             </ul>
           </div>
-          <div class="left span3">
+          <div class="left span3 codeContainer">
             <pre class="hidden">
 d3.select('div');
             </pre>
@@ -139,12 +174,14 @@ d3.select('div');
       </div>
     </div>
 
-    <div class="page">
+    <div class="page demoPage">
       <div class="content left">
         <h2><span class="orderNumbers">4</span>We can grab things that don't yet exist.  (What sorcery!)</h2>
         <h4>It's absolute witchcraft, so let's work through this together.  We'll hold hands.</h4>
         <div class="demo">
           <div class="left span3 demoEnv">
+            <div class="demoContainer">
+            </div>
             <p></p>
           </div>
           <div class="left span3">
@@ -188,7 +225,7 @@ d3.select('div');
             </div>
 
           </div>
-          <div class="left span3">
+          <div class="left span3 codeContainer">
             <pre class="hidden">
 d3.select('div');
             </pre>

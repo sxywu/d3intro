@@ -13,6 +13,12 @@ define([
         initialize: function() {
             this.id = _.uniqueId('page');
             this.$el.attr('id', this.id);
+
+            this.elTop = this.$('.demo').offset().top;
+            this.elBottom = this.$('.demo:last').offset().top + this.$('.demo:last').outerHeight();
+            this.containerHeight = this.$('.demoContainer').height();
+
+            $(window).scroll(_.bind(this.windowScroll, this));
         },
         events: {
             'click .demoDiv': 'clickDiv',
@@ -25,6 +31,19 @@ define([
             'click .enterExit': 'enterExit',
             'click .runCode': 'runCode',
             'click .resetCode': 'resetCode'
+        },
+        windowScroll: function(e) {
+            var top = $(window).scrollTop();
+            if ((top > this.elTop) && ((top + this.containerHeight) < this.elBottom)) {
+                this.$('.demoContainer, .codeContainer')
+                    .addClass('fixed')
+                    .css('top', (top - this.elTop));
+            } else if (top < this.elTop) {
+                this.$('.demoContainer, .codeContainer')
+                    .removeClass('fixed')
+                    .css('top', 0);
+            }
+
         },
         clickDiv: function(e) {
             var $div = ($(e.target).is('.demoDiv') ? $(e.target) : $(e.target).parents('.demoDiv'))
@@ -269,7 +288,7 @@ define([
                 create = this.$('.createEl').length;
 
             if (create) {
-                code = code.replace('d3', 'd3.select("#' + this.id + ' .demoEnv")');
+                code = code.replace('d3', 'd3.select("#' + this.id + ' .demoEnv .demoContainer")');
             } else {
                 code = code.replace(/div/g, '#' + this.id + ' .demoDiv');
             }
@@ -278,7 +297,7 @@ define([
         },
         resetCode: function() {
             this.$('.demoDiv, .demoDiv h4').empty();
-            this.$('.demoEnv').html('<p></p>')
+            this.$('.demoEnv .demoContainer').html('');
         }
     });
 })

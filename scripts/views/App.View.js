@@ -27,7 +27,7 @@ define([
                 });
             });
 
-            $('.demo').each(function() {
+            $('.demoPage').each(function() {
                 new PageView({el: this});
             });
 
