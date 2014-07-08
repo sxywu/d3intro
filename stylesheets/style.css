@@ -123,7 +123,7 @@ specific DOM elements
   position: relative;
 }
 
-.demoDiv, .demoEnv div {
+.demoDiv, .demoEnv .demoContainer div {
   min-height: 75px;
   border-radius: 3px;
   border: 1px solid #666;
@@ -133,6 +133,12 @@ specific DOM elements
 
 .demoDiv.noVis {
   visibility: hidden;
+}
+
+.demoDiv p {
+  font-size: .85em;
+  color: #999;
+
 }
 
 .demo h4 {

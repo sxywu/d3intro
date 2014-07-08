@@ -26,6 +26,7 @@ define([
             'click .manipulateDiv': 'manipulateDiv',
             'click .manipulateChild': 'manipulateChild',
             'keyup .bindData input': 'typeInput',
+            'click .bindData': 'inputData',
             'blur .bindData input': 'inputData',
             'click .createEl': 'createEl',
             'click .enterExit': 'enterExit',
@@ -88,6 +89,7 @@ define([
             val = val.replace(/[^\w\d, ]/g, '');
 
             this.$('.bindData input').val(val);
+            this.$('.bindData span').text(val);
         },
         inputData: function(e) {
             e.stopPropagation();
@@ -139,8 +141,9 @@ define([
                 createEl = this.$('.createEl.active').length,
                 enterExit = this.$('.enterExit.active').length;
 
-            if ((demoHighlighted && manipulateActivated && bindDataActivated)
-                || (createEl && bindDataActivated && enterExit)) {
+            if ((demoHighlighted && manipulateActivated)
+                || (demoHighlighted && bindDataActivated)
+                || (createEl && bindDataActivated)) {
                 this.$('pre').removeClass('hidden');
             } else {
                 this.$('pre').addClass('hidden')
@@ -285,13 +288,27 @@ define([
             // clear demo div's first
             
             var code = this.$('pre').text(),
-                create = this.$('.createEl').length;
+                manipulateActivated = this.$('.manipulateDiv').length ?
+                    this.$('.manipulateDiv.active').length : true,
+                bindDataActivated = this.$('.bindData').length ?
+                    this.$('.bindData.active input').val() : true,
+                create = this.$('.createEl').length,
+                enterExit = this.$('.enterExit.active').length;
+
+            if (bindDataActivated) {
+                this.$('.demoDiv p').remove();
+                var dataCode = 'd3.selectAll("#' + this.id + ' .highlight")';
+                dataCode += this.bindDataCode();
+                dataCode += '.insert("p", "div, li, h4").text(function(d) {return "__data__: " + d;})'
+
+                new Function(dataCode)();
+            }
 
             if (create) {
                 code = code.replace('d3', 'd3.select("#' + this.id + ' .demoEnv .demoContainer")');
             } else {
                 code = code.replace(/div/g, '#' + this.id + ' .demoDiv');
-            }
+            } 
             
             new Function(code)();
         },
