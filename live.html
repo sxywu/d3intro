@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Intro to D3.js</title>
+
+	    <link rel="stylesheet" href="stylesheets/bootstrap.css" type="text/css" />
+	    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	    <script src="scripts/contrib/underscore.js"></script>
+	    <script src="scripts/contrib/d3.v3.js"></script>
+	</head>
+
+	<body>
+		<button>update</button>
+		<svg>
+
+		</svg>
+
+		<script>
+
+			function randomData() {
+				return _.map(_.range(5), function() {
+					return _.random(1, 100);
+				});
+			}
+
+			var data = randomData();
+			var svg = d3.select('svg'),
+				width = 5;
+
+
+		</script>
+	</body>
+
+</html>

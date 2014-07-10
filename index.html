@@ -39,6 +39,13 @@
         </h4>
       </div>
       <div class="notes">
+        <strong>Some delicious samples</strong><br>
+        <a href="http://www.nytimes.com/newsgraphics/2013/09/07/director-star-chart/" target="_blank">Constellation of Directors and Their Stars</a><br>
+        <a href="http://bost.ocks.org/mike/drought/" target="_blank">Drought during *</a><br>
+        <a href="http://kindred.stanford.edu/#" target="_blank">Kindred Britain</a><br>
+        <a href="http://setosa.io/conditional/" target="_blank">Conditional Probability</a><br>
+        <a href="http://www.jeromecukier.net/projects/agot/events.html" target="_blank">Events in the Game of Thrones</a>
+
       </div>
     </div>
 
@@ -252,14 +259,82 @@ d3.select('div');
           </div>
         </div>
 
+      </div>
+      <div class="notes">
+        <strong>The magic</strong>: join
+      </div>
+    </div>
+
+    <div class="page demoPage">
+      <div class="content left">
+        <h2><span class="orderNumbers">5</span>We can also rid of things we no longer need</h2>
         <div class="demo">
           <div class="left span3 demoEnv">
+            <div class="demoContainer">
+            </div>
             <p></p>
           </div>
           <div class="left span3">
-            <p>Now that we've rendered the initial data
-              <span class="emp">let's change the data and update accordingly</span>:
-            </p>
+            <div>
+              <ul class="nav nav-pills nav-stacked">
+                <li class="createEl" data-val="div"><a>div</a></li>
+                <li class="createEl" data-val="h4"><a>h4</a></li>
+                <li class="createEl" data-val="li"><a>li</a></li>
+              </ul>
+            </div>
+            <hr>
+
+            <div>
+              <ul class="nav nav-pills nav-stacked">
+                <li class="bindData"><a>data: [ <input type="text"></input> ]</a></li>
+              </ul>
+            </div>
+            <hr>
+            
+            <div>
+              <ul class="nav nav-pills nav-stacked">
+                <li class="enterExit" data-type="enter">
+                  <a>enter-append</a>
+                  <li class="manipulateChild hidden" data-type="text"><a>text</a></li>
+                </li>
+                <li class="enterExit" data-type="exit"><a>exit-remove</a></li>
+              </ul>
+            </div>
+
+          </div>
+          <div class="left span3 codeContainer">
+            <pre class="hidden">
+d3.select('div');
+            </pre>
+            <span class="btn btn-default hidden runCode">run code</span>
+            <span class="btn btn-default hidden resetCode">reset</span>
+          </div>
+        </div>
+
+      </div>
+      <div class="notes">
+        <strong>The magic</strong>: join
+      </div>
+    </div>
+
+     <div class="page demoPage">
+      <div class="content left">
+        <h2><span class="orderNumbers">6</span>Now let's put them all together</h2>
+        <div class="demo">
+          <div class="left span3 demoEnv">
+            <div class="demoContainer">
+            </div>
+            <p></p>
+          </div>
+          <div class="left span3">
+            <div>
+              <ul class="nav nav-pills nav-stacked">
+                <li class="createEl" data-val="div"><a>div</a></li>
+                <li class="createEl" data-val="h4"><a>h4</a></li>
+                <li class="createEl" data-val="li"><a>li</a></li>
+              </ul>
+            </div>
+            <hr>
 
             <div>
               <ul class="nav nav-pills nav-stacked">
@@ -283,7 +358,15 @@ d3.select('div');
             </div>
 
           </div>
+          <div class="left span3 codeContainer">
+            <pre class="hidden">
+d3.select('div');
+            </pre>
+            <span class="btn btn-default hidden runCode">run code</span>
+            <span class="btn btn-default hidden resetCode">reset</span>
+          </div>
         </div>
+
 
       </div>
       <div class="notes">
@@ -293,7 +376,7 @@ d3.select('div');
 
     <div class="page">
       <div class="content left">
-        <h2><span class="orderNumbers">5</span>Let's bridge the gap: SVG!</h2>
+        <h2><span class="orderNumbers">7</span>Let's bridge the gap: SVG!</h2>
         <h4>Because let's face it - we're not going to be making anything remotely pretty with HTML.</h4>
 
         <div class="demo">

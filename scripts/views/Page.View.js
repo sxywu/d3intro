@@ -291,7 +291,7 @@ define([
             
             var code = this.$('pre').text(),
                 bindDataActivated = this.$('.bindData').length ?
-                    this.$('.bindData.active input').val() : true,
+                    this.$('.bindData.active input').val() : false,
                 create = this.$('.createEl').length;
 
             if (create) {
