@@ -10,26 +10,43 @@
 	    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	    <script src="scripts/contrib/underscore.js"></script>
 	    <script src="scripts/contrib/d3.v3.js"></script>
+
+	    <style>
+	    	.label {
+	    		margin-left: 20px;
+	    	}
+
+	    	.update {
+	    		margin: 20px;
+
+	    	}
+
+	    	svg {
+	    		margin: 20px;
+	    		display: block;
+	    	}
+	    </style>
 	</head>
 
 	<body>
-		<button>update</button>
+		<span class="label label-default">Data</span> <span class="data"></span>
+		<button class='update btn btn-default'>update</button>
+
 		<svg>
 
 		</svg>
 
 		<script>
 
-			function randomData() {
-				return _.map(_.range(5), function() {
-					return _.random(1, 100);
+			function randomData(length) {
+				var data = _.map(_.range(length), function() {
+					return _.random(1, 500);
 				});
+				$('.data').text(JSON.stringify(data));
+				return data;
 			}
 
-			var data = randomData();
-			var svg = d3.select('svg'),
-				width = 5;
-
+			var data = randomData(_.random(1, 10));
 
 		</script>
 	</body>
