@@ -1,0 +1,375 @@
+<html>
+
+  <head>
+
+    <title>Intro to D3.js Workshop</title>
+
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="http://underscorejs.org/underscore-min.js"></script>
+    <script src="http://d3js.org/d3.v3.js" charset="utf-8"></script>
+
+    <script>
+      $(document).ready(function() {
+        var drawGraph = function() {
+          /********************************************************
+          ** YOUR CODE HERE :D                                   **
+          ********************************************************/
+        }
+
+        
+        var nodes,
+          links,
+          width = $('svg').width(),
+          height = $('svg').height(),
+          prepareData = function() {
+            _.each(links, function(link) {
+              link.source = nodes[link.source];
+              link.target = nodes[link.target];
+            });
+
+            nodes = _.values(nodes);
+            links = _.values(links);
+
+            $('.nodes').text(JSON.stringify(nodes));
+            $('.links').text(JSON.stringify(links));
+          },
+          toggleCode = function(e) {
+            var $code = $(e.target).next('.codeContainer');
+            if ($code.hasClass('show')) {
+              $code.removeClass('show');
+            } else {
+              $code.addClass('show');
+            }
+          };
+
+        // before data is loaded, add pan and zoom
+        d3.select('svg').call(d3.behavior.zoom().scaleExtent([1, 8]).on("zoom", function() {
+          d3.select('g').attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+        }));
+        if (localStorage['nodes'] && localStorage['links']) {
+          // if the graph already exists, load that from localStorage
+          nodes = $.parseJSON(localStorage['nodes']);
+          links = $.parseJSON(localStorage['links']);
+
+          prepareData();
+
+          drawGraph();
+        } else {
+          var user;
+          nodes = {};
+          links = {};
+          window.fbAsyncInit = function() {
+            FB.init({
+              appId      : '', /** THE APP ID HERE!! */
+              status     : true,
+              xfbml      : true
+            });
+
+            FB.login(function(response) {
+              getId(function() {
+                getFriends(function() {
+                  getMutualFriends();
+                });
+              });
+            })
+
+            var getId = function(callback) {
+              FB.api(
+                  "/v1.0/me",
+                  function (response) {
+                    if (response && !response.error) {
+                      user = {
+                        name: response.name,
+                        id: response.id
+                      };
+                      callback();
+                    }
+                  }
+              );
+            }
+
+            var getFriends = function(callback) {
+              nodes[user.id] = user;
+              FB.api(
+                  "/v1.0/me/friends",
+                  function (response) {
+                    if (response && !response.error) {
+                      _.each(response.data, function(friend) {
+                        nodes[friend.id] = friend;
+                        links[user.id + ',' + friend.id] = {
+                          source: user.id,
+                          target: friend.id
+                        };
+                      });
+
+                      callback();
+                    }
+                  }
+              );
+            }
+
+            var getMutualFriends = function() {
+              var after = _.after(_.values(nodes).length, function() {
+                localStorage['nodes'] = JSON.stringify(nodes);
+                localStorage['links'] = JSON.stringify(links);
+
+                prepareData();
+                drawGraph();
+              });
+              _.each(nodes, function(friend) {
+                FB.api(
+                    "/v1.0/me/mutualfriends/" + friend.id,
+                    function (response) {
+                      if (response && !response.error) {
+                        _.each(response.data, function(mutualfriend) {
+                          if (!links[mutualfriend.id + ',' + friend.id]) {
+                            // if the link doesn't already exist, add it
+                            links[friend.id + ',' + mutualfriend.id] = {
+                              source: friend.id,
+                              target: mutualfriend.id
+                            };
+                          }
+                        });
+                      }
+                      after();
+                    }
+                );
+              });
+            }
+          };
+
+          (function(d, s, id){
+             var js, fjs = d.getElementsByTagName(s)[0];
+             if (d.getElementById(id)) {return;}
+             js = d.createElement(s); js.id = id;
+             js.src = "//connect.facebook.net/en_US/all.js";
+             fjs.parentNode.insertBefore(js, fjs);
+           }(document, 'script', 'facebook-jssdk'));
+        }
+      });
+      
+    </script>
+
+    <style>
+      * {
+        font-family: Helvetica, sans-serif;
+      }
+
+      svg {
+        left: 0;
+        top: 0;
+        width: 48%;
+        height: 100%;
+        position: fixed;
+        /*border: 1px solid #000;*/
+      }
+
+      .instructions {
+        width: 50%;
+        float: right;
+        clear: both;
+      }
+
+      .section {
+        padding-bottom: 100px;
+      }
+
+      p {
+        padding: 20px 40px 0px 0;
+      }
+
+      .nodes, .links {
+        width: 45%;
+        display: inline-block;
+        height: 200px;
+        overflow: auto;
+        border: 1px solid #000;
+        padding: 5px;
+        border-radius: 3px;
+        margin: 0 5px 5px 0;
+      }
+
+      .orderNumbers {
+        display: inline-block;
+        background-color: #333;
+        color: #fff;
+        width: 45px;
+        height: 45px;
+        line-height: 45px;
+        text-align: center;
+        margin-right: 10px;
+      }
+
+      .code {
+        margin-right: 40px;
+        max-height: 36px;
+        -webkit-transition:max-height .5s;
+        transition: max-height .5s;
+      }
+
+      .code:hover {
+        padding: 10px;
+        max-height: 300px;
+      }
+      
+    </style>
+
+
+  </head>
+
+  <body>
+    
+    <svg>
+      <g></g>
+    </svg>
+
+    <div class="instructions">
+      <div class="section">
+        <h1>Instructions</h1>
+        <p>
+          This tutorial will teach you to code a network graph using D3's force layout.  Try it out first with just the instructions, and if you can't figure it out, look at the code.  You'll write your code in the <code>drawGraph</code> function.
+        </p>
+      </div>
+      <div class="section">
+        <h2><span class="orderNumbers">1</span>Your Facebook data</h2>
+        <div class="nodes"></div>
+        <div class="links"></div>
+      </div>
+      <div class="section">
+        <h2><span class="orderNumbers">2</span>What's a Force graph?</h2>
+        <p>
+          D3.js's <a href="https://github.com/mbostock/d3/wiki/Force-Layout" target="_new">Force layout</a> uses a graph layout algorithm called <a href="http://en.wikipedia.org/wiki/Force-based_layout" target="_new">force-directed graph drawing</a>.  The algorithm calculates the position of each node, and thus its links, by first laying the nodes out and then repositioning them based on the forces that act upon them.  The algorithm also takes into account minimal overlapping of links, and minimal link lengths, thus bringing connected nodes closer to each other.
+        </p>
+        <p>
+          To use D3's force layout, first instantiate it, and give it a size.  (In this case, I have provided the variables <code>width</code> and <code>height</code>, so you can just call those directly).
+        </p>
+        <pre class="code">
+hover to view code
+
+var force = d3.layout.force()
+.size([width, height]);
+        </pre>
+        
+      </div>
+
+      <div class="section">
+        <h2><span class="orderNumbers">3</span>Let's grab <code>g</code></h2>
+        <p>
+          <code><a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Element/g" target="_new">g</a></code> is the SVG element that acts as a container for other SVG elements, and groups its child elements together so that we can do batch manipulations.
+        </p>
+        <p>
+          We'll start our force graph here, and add our nodes and links to this group element.
+        </p>
+        <p>
+          (Note that the <code>g</code> element already exists in the DOM.)
+        </p>
+        <pre class="code">
+hover to view code
+
+var group = d3.select('g')
+        </pre>
+      </div>
+
+      <div class="section">
+        <h2><span class="orderNumbers">4</span>Append the links</h2>
+        <p>
+          Let's create our links as SVG <code><a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Element/line" target="_new">line</a></code> elements.  Make sure to first bind the data before appending them to the group element, and to give them a stroke color so that they're visible.  I gave them opacity too, so that you can see links layered upon each other, but that's not a necessity.
+        </p>
+
+        <pre class="code">
+hover to view code
+
+var link = group.selectAll('.link')
+  .data(links).enter().append('line')
+    .attr('stroke', '#666')
+    .attr('opacity', .5);
+        </pre>
+      </div>
+
+      <div class="section">
+        <h2><span class="orderNumbers">5</span>On to the nodes</h2>
+        <p>
+          For the nodes, let's make them <code><a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Element/circle" target="_new">circle</a></code> elements.  Just like the links, remember to bind the data before entering and appending them.  For a <code>circle</code>, it's important to give it a radius (I chose 5).
+        </p>
+
+        <pre class="code">
+hover to view code
+
+var node = group.selectAll('.node')
+  .data(nodes).enter().append('circle')
+    .attr('r', 5)
+        </pre>
+      </div>
+
+      <div class="section">
+        <h2><span class="orderNumbers">6</span>The mysterious <code>tick</code> function</h2>
+        <p>
+          By now, you might have realized that nothing is appearing on the screen.  Or if you scan hard enough, you realize that there is a quarter of a circle on the top left most corner of the page.  This is because we haven't used the force to calculate the x- and y-positions of the nodes and links yet.
+        </p>
+        <p>
+          Pass the <code>nodes</code> and <code>links</code> data to the force layout, and tell the layout to <code>start</code> calculating the positions.
+        </p>
+
+        <pre class="code">
+hover to view code
+
+force.nodes(nodes).links(links);
+force.start();
+        </pre>
+
+        <p>
+          Wait, but there's still nothing showing up!  Psych, we haven't told the nodes and links their positions yet, so they wouldn't know where to be on the screen.  This is where the <code>tick</code> function comes in.  If you've read a bit into the force-directed algorithm, you may have realized by now that the positions of a force-directed layout are calculated over a certain number of iterations, called "ticks" in D3.  At each "tick", the nodes are nudged by the collective forces of all the other nodes, and eventually settle into an optimal position.
+        </p>
+        <p>
+          When D3 calculates the positions of the nodes, it saves those positions on the <code>nodes</code> data that we passed in.  Thus, if we pass in <code>d</code> as our data to a function to manipulate an attribute, we would get the node's x- and y-coordinates via <code>d.x</code> and <code>d.y</code> respectively.  And since each link holds a reference to its <code>source</code> and <code>target</code> nodes, we can access the link's positions via <code>d.source.x</code> and <code>d.target.x</code>, and so on. 
+        </p>
+        <p>
+          Finally, D3 gives access to each "tick" via the <code>tick</code> event on the force layout.  Use this event if you want to position the nodes and links on each tick.  Alternatively, D3 also provides the <code>end</code> event, which you can use the position the nodes after all the calculations are done.  This is really useful if you have a really big and complex graph, as positioning it on each tick might bog down the browser.
+        </p>
+        <pre class="code">
+hover to view code
+
+force = d3.layout.force()
+  .size([width, height])
+  .on('end', function() {
+    node.attr('cx', function(d) {return d.x})
+      .attr('cy', function(d) {return d.y});
+
+    link.attr('x1', function(d) {return d.source.x})
+      .attr('y1', function(d) {return d.source.y})
+      .attr('x2', function(d) {return d.target.x})
+      .attr('y2', function(d) {return d.target.y});
+  });
+        </pre>
+      </div>
+
+      <div class="section">
+        <h2><span class="orderNumbers">*</span>And some bonuses</h2>
+        <p>
+          At this point, you might really dislike that the nodes are all black.  Don't fear, D3 can <a href="https://github.com/mbostock/d3/wiki/Ordinal-Scales#category10" target="_new">help you with that</a>!  Just pass it in to the <code>fill</code> attribute of the node.
+        </p>
+        <p>
+          You can also append a <code>title</code> to the node so that when you hover, you can see your friend's name.
+        </p>
+        <pre class="code">
+hover to view code
+
+var color = d3.scale.category20();
+node.attr('fill', function(d) {return color(d.name)})
+  .append("title")
+    .text(function(d) { return d.name; });
+        </pre>
+        <h3>Let me give you some inspiration</h3>
+        <p>
+          Want to do some more?  Here's food for your inspiration: <a href="http://vallandingham.me/abusing_the_force.html" target="_new">Using and Abusing the Force</a>
+        </p>
+
+      </div>
+    </div>
+
+
+        
+
+  </body>
+</html>
