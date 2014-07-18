@@ -297,9 +297,10 @@ define([
             if (create) {
                 code = code.replace('d3', 'd3.select("#' + this.id + ' .demoEnv .demoContainer")');
             } else {
-                code = code.replace(/div/g, '#' + this.id + ' .demoDiv');
+                code = code.replace(/div/g, '#' + this.id + ' .demoDiv.highlight');
             } 
 
+            code = 'console.log(' + code.replace(/;/g, '') + ')';
             new Function(code)();
 
             if (bindDataActivated) {
