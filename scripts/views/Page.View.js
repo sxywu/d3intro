@@ -68,7 +68,7 @@ define([
                 if ($manipulateDiv.attr('data-type') === 'append') {
                     $manipulateDiv.next('.manipulateChild').removeClass('hidden');
                 } else {
-                    $manipulateDiv.next('.manipulateChild').addClass('hidden');
+                    this.$('.manipulateChild').removeClass('active').addClass('hidden');
                 }
             }
             
@@ -217,7 +217,6 @@ define([
 
             if (val) {
                 val = val.split(', ').map(function(val) {
-                    console.log(_.isString(val), _.isNumber(val));
                     val = val.replace(/"/g, '');
                     return '"' + val + '"';
                 }).join(', ');
