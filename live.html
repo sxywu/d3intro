@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="utf-8">
 
-		<title>Intro to D3.js</title>
+		<title>Intro to D3.js: Live Coding</title>
 
 	    <link rel="stylesheet" href="stylesheets/bootstrap.css" type="text/css" />
 	    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
@@ -23,6 +23,7 @@
 
 	    	svg {
 	    		margin: 20px;
+	    		height: 500px;
 	    		display: block;
 	    	}
 	    </style>
@@ -47,6 +48,51 @@
 			}
 
 			var data = randomData(_.random(1, 10));
+
+			var g = d3.select('svg').append('g'),
+				color = d3.scale.category20(),
+				width = 20,
+				height = 500;
+
+			var rect = g.selectAll('rect')
+				.data(data).enter().append('rect')
+				.attr('width', width)
+				.attr('height', function(d) {return d})
+				.attr('x', function(d, i) {return i * 2 * width})
+				.attr('y', function(d) {return height - d})
+				.attr('fill', color);
+
+			$('.update').click(function() {
+				data = randomData(_.random(1, 10));
+
+				// exit
+				g.selectAll('rect')
+					.data(data).exit().remove();
+
+				// update
+				g.selectAll('rect')
+					.data(data)
+					.transition().duration(750)
+					.attr('height', function(d) {return d})
+					.attr('y', function(d) {return height - d});
+
+				// enter
+				g.selectAll('rect')
+					.data(data).enter().append('rect')
+					.attr('x', function(d, i) {return i * 2 * width})
+					.attr('y', height)
+					.transition().duration(750)
+					.attr('width', width)
+					.attr('height', function(d) {return d})
+					
+					.attr('y', function(d) {return height - d})
+					.attr('fill', color);
+
+				
+
+
+			});
+
 
 		</script>
 	</body>
