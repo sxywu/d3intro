@@ -5,9 +5,7 @@ define([
 ], function(
     $,
     _,
-    Backbone,
-    d3,
-    HoodVisualization
+    Backbone
 ) {
     return Backbone.View.extend({
         initialize: function() {
