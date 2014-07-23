@@ -104,13 +104,10 @@ define([
                 manipulateActivated = this.$('.manipulateDiv').length ?
                     this.$('.manipulateDiv.active').length : true,
                 bindDataActivated = this.$('.bindData').length ?
-                    this.$('.bindData.active input').val() : true,
-                createEl = this.$('.createEl.active').length,
-                enterExit = this.$('.enterExit.active').length;
+                    this.$('.bindData.active input').val() : true;
 
             if ((demoHighlighted && manipulateActivated)
-                || (demoHighlighted && bindDataActivated)
-                || (createEl && bindDataActivated)) {
+                || (demoHighlighted && bindDataActivated)) {
                 this.$('pre').removeClass('hidden');
             } else {
                 this.$('pre').addClass('hidden')
@@ -122,14 +119,7 @@ define([
             var selection = this.selectionCode(),
                 data = this.bindDataCode(),
                 manipulate = this.manipulateCode(),
-                code;
-
-            if (selection) {
-                code = selection 
-                    + data
-                    + manipulate
-                    + ';';
-            }
+                code = selection + data + manipulate + ';';
 
             if (this.$('pre').hasClass('hidden')) {
                 this.$('.runCode, .resetCode').addClass('hidden');
@@ -217,7 +207,6 @@ define([
                     this.$('.bindData.active input').val() : false;
 
             code = code.replace(/div/g, '#' + this.id + ' .demoDiv.highlight'); 
-
             code = 'console.log(' + code.replace(/;/g, '') + ')';
             new Function(code)();
 

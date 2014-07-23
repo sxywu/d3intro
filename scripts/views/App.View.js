@@ -3,13 +3,15 @@ define([
     "underscore",
     "backbone",
     "d3",
-    "app/views/Base.View"
+    "app/views/Base.View",
+    "app/views/Create.View"
 ], function(
     $,
     _,
     Backbone,
     d3,
-    BaseView
+    BaseView,
+    CreateView
 ) {
     return Backbone.View.extend({
         render: function() {
@@ -27,6 +29,9 @@ define([
                 new BaseView({el: this});
             });
 
+            $('.createDemo').each(function() {
+                new CreateView({el: this});
+            });
         }
     });
 })
